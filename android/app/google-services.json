@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "289130129727",
+    "project_id": "pakistan-live-da173",
+    "storage_bucket": "pakistan-live-da173.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289130129727:android:25c903e7f830e76d264b8a",
+        "android_client_info": {
+          "package_name": "com.example.psic_comments"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "289130129727-1fdm4ide446cedttbkt55fajtgf0t2m4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFsk_51K0qFvwMn4IICrGvcK4bZS6Ia9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "289130129727-1fdm4ide446cedttbkt55fajtgf0t2m4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "289130129727-9frc3pdokmv70llr7meb1to5dduef5vi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.stackbuffers.psic.project"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289130129727:android:532a84ad3d74c9e8264b8a",
+        "android_client_info": {
+          "package_name": "com.stackbuffers.psic_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "289130129727-1fdm4ide446cedttbkt55fajtgf0t2m4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFsk_51K0qFvwMn4IICrGvcK4bZS6Ia9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "289130129727-1fdm4ide446cedttbkt55fajtgf0t2m4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "289130129727-9frc3pdokmv70llr7meb1to5dduef5vi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.stackbuffers.psic.project"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
