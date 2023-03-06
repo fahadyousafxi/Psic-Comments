@@ -3,35 +3,28 @@ import 'package:flutter/cupertino.dart';
 
 import '../model/comments_model.dart';
 
-class CommentsProviders with ChangeNotifier{
+class CommentsProviders with ChangeNotifier {
   CommentsModel? commentsModel;
 
   // List<CommentsModel> searchProductsList = [];
 
-  productModels(QueryDocumentSnapshot element){
+  productModels(QueryDocumentSnapshot element) {
     commentsModel = CommentsModel(
-        comments: element.get("comments"),
-        username: element.get("username"),
-        uId: element.get("uId"),
-
+      comments: element.get("comments"),
+      username: element.get("username"),
+      createdAt: element.get("createdAt"),
+      uId: element.get("uId"),
     );
     // searchProductsList.add(commentsModel!);
   }
 
-
-
-
-
-
-
-
   List<CommentsModel> commentsList = [];
-  fitchComments() async {
+  fetchComments() async {
     List<CommentsModel> newList = [];
-    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection("users").get();
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection("users").get();
 
     for (var element in snapshot.docs) {
-
       productModels(element);
       // productModel = ProductModel(
       //   productImage1: element.get("productImage1"),
@@ -45,8 +38,8 @@ class CommentsProviders with ChangeNotifier{
     commentsList = newList;
     notifyListeners();
   }
+
   List<CommentsModel> get getCommentsList {
     return commentsList;
   }
-
 }

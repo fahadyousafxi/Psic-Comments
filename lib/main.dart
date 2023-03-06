@@ -21,24 +21,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-
       providers: [
         ChangeNotifierProvider<CommentsProviders>(
           create: (context) => CommentsProviders(),
         ),
       ],
-
       child: MaterialApp(
-        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        title: 'PSIC Comments',
         theme: ThemeData(
-
           primarySwatch: Colors.blue,
         ),
-        home:  MyHomePage(),
+        home: const MyHomePage(),
       ),
     );
   }
 }
-
-
-

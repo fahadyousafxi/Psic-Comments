@@ -1,24 +1,40 @@
-// https://psic.org.pk/aic.php
-// name
-// secretkey    JFwnU@r#bC3sG4vi
-// Comment
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
+class ApiController {
+  apply({var name, var comment, var secretKey, context}) async {
+    var jsonObject = {
+      'name': name,
+      'comment': comment,
+      'secretkey': secretKey,
+    };
 
+    var jsonString = jsonEncode(jsonObject);
 
+    final url = Uri.parse('https://psic.org.pk/aic.php');
+    var response = await http.post(
+      url,
+      body: jsonDecode(jsonString),
+    );
 
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(jsonDecode(response.body)['result']),
+        ),
+      );
 
-//
-// class ApiController {
-//
-//   String secretKey = "JFwnU@r#bC3sG4vi";
-//
-//   apply() async {
-//
-//     var headers = {'Authorization': 'secret-key $secretKey'};
-//
-//     var request = http.Request('PUT',
-//         Uri.parse('https://psic.org.pk/aic.php'));
-//
-//   }
-// }
+      return jsonDecode(response.body)['result'];
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(jsonDecode(response.body)['result']),
+        ),
+      );
+
+      return jsonDecode(response.body)['result'];
+    }
+  }
+}
