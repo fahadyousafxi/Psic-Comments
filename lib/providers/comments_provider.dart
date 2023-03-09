@@ -13,6 +13,7 @@ class CommentsProviders with ChangeNotifier {
       comments: element.get("comments"),
       username: element.get("username"),
       createdAt: element.get("createdAt"),
+      sent: element.get('sent'),
       uId: element.get("uId"),
     );
     // searchProductsList.add(commentsModel!);

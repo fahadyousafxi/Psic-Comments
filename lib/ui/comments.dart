@@ -40,6 +40,7 @@ class _ViewCommentsState extends State<ViewComments> {
         itemCount: commentsProviders.getCommentsList.length,
         itemBuilder: (BuildContext context, int index) {
           var data = commentsProviders.getCommentsList[index];
+          var sent = commentsProviders.getCommentsList[index].sent;
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 7),
@@ -48,7 +49,10 @@ class _ViewCommentsState extends State<ViewComments> {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(22),
-                border: Border.all(color: Colors.black),
+                border: Border.all(
+                  width: 4,
+                  color: sent == false ? Colors.grey : Colors.green,
+                ),
               ),
               child: Center(
                 child: Column(
@@ -91,7 +95,7 @@ class _ViewCommentsState extends State<ViewComments> {
                           icon: const Icon(Icons.delete),
                         ),
                         IconButton(
-                          color: Colors.green,
+                          color: sent == false ? Colors.grey : Colors.green,
                           onPressed: () async {
                             ApiController apiController = ApiController();
                             await apiController.apply(
@@ -100,6 +104,10 @@ class _ViewCommentsState extends State<ViewComments> {
                               secretKey: 'JFwnU@r#bC3sG4vi',
                               context: context,
                             );
+                            _fireStore.doc(data.uId.toString()).update({
+                              'sent': true,
+                            });
+                            setState(() {});
                           },
                           icon: const Icon(Icons.send),
                         )
