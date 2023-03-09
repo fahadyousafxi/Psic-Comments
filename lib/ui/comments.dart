@@ -35,10 +35,12 @@ class _ViewCommentsState extends State<ViewComments> {
         title: const Text('Interact'),
       ),
       body: ListView.builder(
+        reverse: true,
         shrinkWrap: true,
         itemCount: commentsProviders.getCommentsList.length,
         itemBuilder: (BuildContext context, int index) {
           var data = commentsProviders.getCommentsList[index];
+
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 7),
             child: Container(
