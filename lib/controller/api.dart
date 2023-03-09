@@ -21,16 +21,16 @@ class ApiController {
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(jsonDecode(response.body)['result']),
+        const SnackBar(
+          content: Text('Message Sent Successfully'),
         ),
       );
 
       return jsonDecode(response.body)['result'];
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(jsonDecode(response.body)['result']),
+        const SnackBar(
+          content: Text('Sending Failed'),
         ),
       );
 

@@ -32,7 +32,7 @@ class _ViewCommentsState extends State<ViewComments> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Comments'),
+        title: const Text('Interact'),
       ),
       body: ListView.builder(
         shrinkWrap: true,
@@ -42,7 +42,7 @@ class _ViewCommentsState extends State<ViewComments> {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 7),
             child: Container(
-              height: 130,
+              height: 190,
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(22),
@@ -52,19 +52,27 @@ class _ViewCommentsState extends State<ViewComments> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const SizedBox(height: 10),
                     Text('User Name: ${data.username}'),
-                    const SizedBox(height: 15),
-                    Text('Comment: ${data.comments}'),
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12, right: 12),
+                      child: Text('Comment: ${data.comments}'),
+                    ),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
+                          color: Colors.blue,
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => CreateScreen(
-                                  uId: data.uId,
+                                  uId: data.uId!,
+                                  name: data.username!,
+                                  comment: data.comments!,
                                 ),
                               ),
                             );
@@ -72,6 +80,7 @@ class _ViewCommentsState extends State<ViewComments> {
                           icon: const Icon(Icons.edit),
                         ),
                         IconButton(
+                          color: Colors.red,
                           onPressed: () {
                             _fireStore.doc(data.uId).delete();
 
@@ -80,6 +89,7 @@ class _ViewCommentsState extends State<ViewComments> {
                           icon: const Icon(Icons.delete),
                         ),
                         IconButton(
+                          color: Colors.green,
                           onPressed: () async {
                             ApiController apiController = ApiController();
                             await apiController.apply(
