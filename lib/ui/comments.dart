@@ -103,10 +103,12 @@ class _ViewCommentsState extends State<ViewComments> {
                               comment: data.comments,
                               secretKey: 'JFwnU@r#bC3sG4vi',
                               context: context,
+                              data: data.uId,
                             );
                             _fireStore.doc(data.uId.toString()).update({
                               'sent': true,
                             });
+
                             setState(() {});
                           },
                           icon: const Icon(Icons.send),

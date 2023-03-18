@@ -1,10 +1,14 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ApiController {
-  apply({var name, var comment, var secretKey, context}) async {
+  final _fireStore = FirebaseFirestore.instance.collection("users");
+
+  apply({var name, var comment, var secretKey, context, data}) async {
     var jsonObject = {
       'name': name,
       'comment': comment,
@@ -25,6 +29,10 @@ class ApiController {
           content: Text('Message Sent Successfully'),
         ),
       );
+
+      Timer(const Duration(seconds: 2), () {
+        _fireStore.doc(data).delete();
+      });
 
       return jsonDecode(response.body)['result'];
     } else {
