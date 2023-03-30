@@ -24,6 +24,12 @@ class _ViewCommentsState extends State<ViewComments> {
   }
 
   final _fireStore = FirebaseFirestore.instance.collection("users");
+  String selectedHall = 'Hall A';
+  List<String> halls = [
+    'Hall A',
+    'Hall B',
+    'Hall C',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +71,32 @@ class _ViewCommentsState extends State<ViewComments> {
                       padding: const EdgeInsets.only(left: 12, right: 12),
                       child: Text('Comment: ${data.comments}'),
                     ),
+                    SizedBox(
+                      width: 100,
+                      child: DropdownButtonFormField(
+                        alignment: Alignment.center,
+                        borderRadius: BorderRadius.circular(12),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select halls';
+                          }
+                          return null;
+                        },
+                        value: selectedHall,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedHall = value!;
+                          });
+                        },
+                        items: halls.map((e) {
+                          return DropdownMenuItem(
+                            alignment: Alignment.center,
+                            value: e,
+                            child: Text(e),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -101,6 +133,7 @@ class _ViewCommentsState extends State<ViewComments> {
                             await apiController.apply(
                               name: data.username,
                               comment: data.comments,
+                              selectedHall: selectedHall,
                               secretKey: 'JFwnU@r#bC3sG4vi',
                               context: context,
                               data: data.uId,
