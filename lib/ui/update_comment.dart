@@ -1,25 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class CreateScreen extends StatefulWidget {
+class UpdateComment extends StatefulWidget {
   final String uId;
   final String name;
   final String comment;
+  final String hall;
 
-  const CreateScreen({
+  const UpdateComment({
     super.key,
     required this.uId,
     required this.name,
     required this.comment,
+    required this.hall,
   });
 
   @override
-  State<CreateScreen> createState() => _CreateScreenState();
+  State<UpdateComment> createState() => _UpdateCommentState();
 }
 
-class _CreateScreenState extends State<CreateScreen> {
+class _UpdateCommentState extends State<UpdateComment> {
   final TextEditingController _name = TextEditingController();
   final TextEditingController _comment = TextEditingController();
+  final TextEditingController _hall = TextEditingController();
   final _fireStore = FirebaseFirestore.instance.collection("users");
 
   @override
@@ -27,6 +30,7 @@ class _CreateScreenState extends State<CreateScreen> {
     super.initState();
     _name.text = widget.name;
     _comment.text = widget.comment;
+    _hall.text = widget.hall;
   }
 
   @override
@@ -40,37 +44,32 @@ class _CreateScreenState extends State<CreateScreen> {
         child: Column(
           children: [
             TextField(
+              controller: _hall,
+              enabled: false,
+            ),
+            TextField(
               controller: _name,
               decoration: const InputDecoration(hintText: 'Name'),
-            ),
-            const SizedBox(
-              height: 11,
             ),
             TextField(
               controller: _comment,
               decoration: const InputDecoration(hintText: 'Comment'),
-              maxLines: 4,
+              maxLines: 3,
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            ElevatedButton(
+            const SizedBox(height: 30),
+            SizedBox(
+              width: 160,
+              child: ElevatedButton(
                 onPressed: () {
-                  // String uid = DateTime.now().microsecondsSinceEpoch.toString();
-
                   _fireStore.doc(widget.uId.toString()).update({
                     'username': _name.text,
                     'comments': _comment.text,
                   });
                   Navigator.pop(context);
-
-                  // _fireStore.doc(uid).set({
-                  //   'uId' : uid,
-                  //   'username' : _name.text,
-                  //   'comments' : _Comment.text,
-                  // });
                 },
-                child: const Text('Submit'))
+                child: const Text('Submit'),
+              ),
+            ),
           ],
         ),
       ),

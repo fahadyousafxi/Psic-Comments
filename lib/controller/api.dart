@@ -8,17 +8,11 @@ import 'package:http/http.dart' as http;
 class ApiController {
   final _fireStore = FirebaseFirestore.instance.collection("users");
 
-  apply(
-      {var name,
-      var comment,
-      var selectedHall,
-      var secretKey,
-      context,
-      data}) async {
+  apply({var name, var comment, var hall, var secretKey, context, data}) async {
     var jsonObject = {
       'name': name,
       'comment': comment,
-      'hall': selectedHall,
+      'hall': hall,
       'secretkey': secretKey,
     };
 

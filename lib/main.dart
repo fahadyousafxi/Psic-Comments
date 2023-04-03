@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:psic_comments/providers/comments_provider.dart';
-import 'package:psic_comments/ui/comments.dart';
+import 'package:psic_comments/ui/home_screen.dart';
 
 import 'firebase_options.dart';
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             primary: Color(0xff8E3434),
           ),
         ),
-        home: const ViewComments(),
+        home: const HomeScreen(),
       ),
     );
   }
