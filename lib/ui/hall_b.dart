@@ -27,101 +27,119 @@ class _HallBState extends State<HallB> {
       appBar: AppBar(
         title: const Text('Hall B'),
       ),
-      body: ListView.builder(
-        reverse: true,
-        shrinkWrap: true,
-        itemCount: commentsProviders.getCommentsList.length,
-        itemBuilder: (BuildContext context, int index) {
-          var data = commentsProviders.getCommentsList[index];
-          var sent = commentsProviders.getCommentsList[index].sent;
+      body: commentsProviders.getCommentsList.any((element) {
+        return element.hall == 'Hall B';
+      })
+          ? ListView.builder(
+              reverse: true,
+              shrinkWrap: true,
+              itemCount: commentsProviders.getCommentsList.length,
+              itemBuilder: (BuildContext context, int index) {
+                var data = commentsProviders.getCommentsList[index];
+                var sent = commentsProviders.getCommentsList[index].sent;
 
-          if (data.hall == 'Hall B') {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 7),
-              child: Container(
-                height: 190,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                  border: Border.all(
-                    width: 4,
-                    color: sent == false ? Colors.grey : Colors.green,
-                  ),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 10),
-                      Text('User Name: ${data.username}'),
-                      const SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12, right: 12),
-                        child: Text('Comment: ${data.comments}'),
+                if (data.hall == 'Hall B') {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 40, vertical: 7),
+                    child: Container(
+                      height: 190,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(22),
+                        border: Border.all(
+                          width: 4,
+                          color: sent == false ? Colors.grey : Colors.green,
+                        ),
                       ),
-                      const SizedBox(height: 10),
-                      Text('Hall: ${data.hall}'),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            color: Colors.blue,
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => UpdateComment(
-                                    uId: data.uId!,
-                                    name: data.username!,
-                                    comment: data.comments!,
-                                    hall: data.hall!,
-                                  ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 10),
+                            Text('User Name: ${data.username}'),
+                            const SizedBox(height: 10),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 12, right: 12),
+                              child: Text('Comment: ${data.comments}'),
+                            ),
+                            const SizedBox(height: 10),
+                            Text('Hall: ${data.hall}'),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  color: Colors.blue,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => UpdateComment(
+                                          uId: data.uId!,
+                                          name: data.username!,
+                                          comment: data.comments!,
+                                          hall: data.hall!,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(Icons.edit),
                                 ),
-                              );
-                            },
-                            icon: const Icon(Icons.edit),
-                          ),
-                          IconButton(
-                            color: Colors.red,
-                            onPressed: () {
-                              _fireStore.doc(data.uId).delete();
+                                IconButton(
+                                  color: Colors.red,
+                                  onPressed: () {
+                                    _fireStore.doc(data.uId).delete();
 
-                              setState(() {});
-                            },
-                            icon: const Icon(Icons.delete),
-                          ),
-                          IconButton(
-                            color: sent == false ? Colors.grey : Colors.green,
-                            onPressed: () async {
-                              ApiController apiController = ApiController();
-                              await apiController.apply(
-                                name: data.username,
-                                comment: data.comments,
-                                hall: data.hall,
-                                secretKey: 'JFwnU@r#bC3sG4vi',
-                                context: context,
-                                data: data.uId,
-                              );
-                              _fireStore.doc(data.uId.toString()).update({
-                                'sent': true,
-                              });
+                                    setState(() {});
+                                  },
+                                  icon: const Icon(Icons.delete),
+                                ),
+                                sent == true
+                                    ? CircularProgressIndicator()
+                                    : IconButton(
+                                        color: sent == false
+                                            ? Colors.grey
+                                            : Colors.green,
+                                        onPressed: () async {
+                                          ApiController apiController =
+                                              ApiController();
+                                          await apiController.apply(
+                                            name: data.username,
+                                            comment: data.comments,
+                                            hall: data.hall,
+                                            secretKey: 'JFwnU@r#bC3sG4vi',
+                                            context: context,
+                                            data: data.uId,
+                                          );
+                                          _fireStore
+                                              .doc(data.uId.toString())
+                                              .update({
+                                            'sent': true,
+                                          });
 
-                              setState(() {});
-                            },
-                            icon: const Icon(Icons.send),
-                          )
-                        ],
+                                          setState(() {});
+                                        },
+                                        icon: const Icon(Icons.send),
+                                      )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          }
-          return Container();
-        },
-      ),
+                    ),
+                  );
+                }
+                return Container();
+              },
+            )
+          : Center(
+              child: Text('No Comments'),
+              //   child: CircularProgressIndicator(
+              //   color: Colors.red,
+              // ),
+            ),
     );
   }
 }

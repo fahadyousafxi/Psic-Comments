@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'PSIC Comments',
+        title: 'PSIC Admin',
         theme: ThemeData(
           colorScheme: const ColorScheme.light(
             primary: Color(0xff8E3434),
