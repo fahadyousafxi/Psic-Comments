@@ -43,6 +43,10 @@ class ApiController {
         ),
       );
 
+      print('********************************');
+      print(response.statusCode);
+      print('********************************');
+
       return jsonDecode(response.body)['result'];
     }
   }

@@ -103,6 +103,11 @@ class _HallBState extends State<HallB> {
                                             ? Colors.grey
                                             : Colors.green,
                                         onPressed: () async {
+                                          await _fireStore
+                                              .doc(data.uId.toString())
+                                              .update({
+                                            'sent': true,
+                                          });
                                           ApiController apiController =
                                               ApiController();
                                           await apiController.apply(
@@ -110,14 +115,9 @@ class _HallBState extends State<HallB> {
                                             comment: data.comments,
                                             hall: data.hall,
                                             secretKey: 'JFwnU@r#bC3sG4vi',
-                                            context: context,
+                                            // context: context,
                                             data: data.uId,
                                           );
-                                          _fireStore
-                                              .doc(data.uId.toString())
-                                              .update({
-                                            'sent': true,
-                                          });
 
                                           setState(() {});
                                         },

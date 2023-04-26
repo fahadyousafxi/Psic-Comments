@@ -23,6 +23,8 @@ class _HallAState extends State<HallA> {
   Timer? timer;
   bool isLoading = true;
 
+  int isSelected = -1;
+
   void myTimer() async {
     if (commentsProviders.getCommentsList.contains('Hall A')) {
       timer!.cancel();
@@ -133,6 +135,14 @@ class _HallAState extends State<HallA> {
                                             ? Colors.grey
                                             : Colors.green,
                                         onPressed: () async {
+                                          // setState(() {
+                                          //   isSelected = index;
+                                          // });
+                                          await _fireStore
+                                              .doc(data.uId.toString())
+                                              .update({
+                                            'sent': true,
+                                          });
                                           ApiController apiController =
                                               ApiController();
                                           await apiController.apply(
@@ -143,13 +153,10 @@ class _HallAState extends State<HallA> {
                                             context: context,
                                             data: data.uId,
                                           );
-                                          _fireStore
-                                              .doc(data.uId.toString())
-                                              .update({
-                                            'sent': true,
-                                          });
 
-                                          setState(() {});
+                                          setState(() {
+                                            isSelected = -1;
+                                          });
                                         },
                                         icon: const Icon(Icons.send),
                                       )

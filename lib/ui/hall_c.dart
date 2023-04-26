@@ -104,6 +104,12 @@ class _HallCState extends State<HallC> {
                                         onPressed: () async {
                                           ApiController apiController =
                                               ApiController();
+                                          await _fireStore
+                                              .doc(data.uId.toString())
+                                              .update({
+                                            'sent': true,
+                                          });
+
                                           await apiController.apply(
                                             name: data.username,
                                             comment: data.comments,
@@ -112,11 +118,6 @@ class _HallCState extends State<HallC> {
                                             context: context,
                                             data: data.uId,
                                           );
-                                          _fireStore
-                                              .doc(data.uId.toString())
-                                              .update({
-                                            'sent': true,
-                                          });
 
                                           setState(() {});
                                         },
