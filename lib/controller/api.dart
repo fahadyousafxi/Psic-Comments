@@ -31,7 +31,7 @@ class ApiController {
         ),
       );
 
-      Timer(const Duration(seconds: 2), () {
+      Timer(const Duration(seconds: 20), () {
         _fireStore.doc(data).delete();
       });
 
